@@ -1,0 +1,59 @@
+dependencies { // TODO - adjust the dependencies
+    // JUnit and Spring test dependencies (Unit tests)
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // Groovy Spock dependencies (Unit test)
+    testImplementation 'org.objenesis:objenesis:2.6'
+    testImplementation 'org.spockframework:spock-core:1.2-groovy-2.4'
+
+    testImplementation 'io.projectreactor:reactor-test' // to test reactive APIs (Integration tests)
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo' // to create embedded mongo (Integration tests)
+
+    testAnnotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+// Java Junit test configurations
+test {
+    useJUnitPlatform()
+
+    // listen to events in the test execution lifecycle
+    beforeTest { TestDescriptor descriptor ->
+        logger.debug(':{}:test executing: {} -> {}', project.name, descriptor.className, descriptor.name)
+    }
+    afterTest { TestDescriptor descriptor ->
+        logger.lifecycle(':{}:test completed: {} -> {}', project.name, descriptor.className, descriptor.name)
+    }
+}
+
+// Test coverage control
+apply plugin: 'jacoco'
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+jacocoTestCoverageVerification.dependsOn 'jacocoTestReport'
+check.dependsOn 'jacocoTestCoverageVerification'
+
+jacocoTestReport {
+
+    reports {
+        csv.enabled false
+        html {
+            enabled true
+            destination new File("${buildDir}/reports/jacoco")
+        }
+        xml.enabled false
+    }
+}
+
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.80
+            }
+        }
+    }
+}

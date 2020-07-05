@@ -1,0 +1,20 @@
+bootJar {
+    // Packaging Layered Jars - useful for docker images creation performance
+    // The default order is dependencies, spring-boot-loader, snapshot-dependencies, application
+    layered {
+        includeLayerTools = false
+    }
+}
+
+bootBuildImage {
+    imageName = "abahrami.com/library/springwebtemplate:${project.version}" // TODO - rename image name
+}
+
+springBoot {
+    buildInfo() // expose build info via actuator/info endpoint
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}

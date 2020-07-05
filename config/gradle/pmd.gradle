@@ -1,0 +1,10 @@
+apply plugin: 'pmd'
+
+pmd {
+    toolVersion = "6.23.0"
+    ignoreFailures = false
+    consoleOutput = true
+    ruleSets = []
+    ruleSetFiles = files("${project.rootDir}/config/pmd/ruleset.xml")
+    rulePriority = 5
+}

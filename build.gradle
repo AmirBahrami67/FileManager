@@ -1,0 +1,45 @@
+plugins {
+    // spring
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    // expose Git commit and branch info (at build time) in actuator/info endpoint
+    id "com.gorylenko.gradle-git-properties" version "1.5.1" // TODO - remove this if not using GIT
+
+    // languages
+    id 'java'
+    id 'groovy'
+
+    // release
+    id 'maven-publish'
+}
+
+group = 'com.abahrami'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '14'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// repositories
+apply from: file("${rootProject.projectDir}/config/gradle/repositories.gradle")
+
+// dependencies
+apply from: file("${rootProject.projectDir}/config/gradle/dependencies.gradle")
+
+// build configuration
+apply from: file("${rootProject.projectDir}/config/gradle/build.gradle")
+
+// test configuration
+apply from: file("${rootProject.projectDir}/config/gradle/test.gradle")
+
+// checkstyle static code analysis tool configuration
+apply from: file("${rootProject.projectDir}/config/gradle/checkstyle.gradle")
+
+// PMD static source code analyzer configuration
+apply from: file("${rootProject.projectDir}/config/gradle/pmd.gradle")
+
+defaultTasks 'build'
+

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Amir ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>Amir PMD Ruleset</description>
+
+    <!-- Exclude all generated code - IntelliJ plugin picks this up -->
+    <exclude-pattern>.*/target/.*</exclude-pattern>
+
+    <rule ref="category/java/bestpractices.xml">
+        <!-- Too annoying to care, performance difference probably tiny -->
+        <exclude name="AccessorClassGeneration"/>
+        <!-- Makes it nearly impossible to use inner classes, performance difference probably tiny -->
+        <exclude name="AccessorMethodGeneration"/>
+        <!-- Findbugs handles better -->
+        <exclude name="ArrayIsStoredDirectly"/>
+        <!--Not useful with Logback-->
+        <exclude name="GuardLogStatement"/>
+        <!-- False positive on non-test code -->
+        <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+        <!-- Not the case always -->
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+        <!-- Don't care -->
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <!-- Not worth all the extra tests -->
+        <exclude name="JUnitTestContainsTooManyAsserts"/>
+        <!-- Findbugs handles better -->
+        <exclude name="MethodReturnsInternalArray"/>
+        <!-- Checkstyle -->
+        <exclude name="OneDeclarationPerLine"/>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP">
+        <properties>
+            <!-- Ignore for classes with names ending in 'Test' -->
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration[matches(@Image, '.*Test')]"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml">
+        <!-- No -->
+        <exclude name="AtLeastOneConstructor"/>
+        <!-- Deprecated -->
+        <exclude name="AvoidFinalLocalVariable"/>
+        <!-- Static imports disallowed by checkstyle -->
+        <exclude name="TooManyStaticImports"/>
+        <exclude name="OnlyOneReturn"/>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ShortClassName">
+        <properties>
+            <property name="minimum" value="4"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier">
+        <properties>
+            <!-- Ignore for classes with names ending in 'Test' -->
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration[matches(@Image, '.*Test')]"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <!-- Match checkstyle rules for abstract classes -->
+            <property name="abstractClassPattern" value="Abstract[a-zA-Z0-9]+"/>
+            <!-- Treats far too many things as "utility" classes - replaced with plain pattern. -->
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ConfusingTernary">
+        <properties>
+            <!--Seems to give false positives.-->
+            <property name="ignoreElseIf" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/DefaultPackage">
+        <properties>
+            <!-- Ignore for classes with names ending in 'Test' -->
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration[matches(@Image, '.*Test')]"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/LinguisticNaming">
+        <properties>
+            <!--Necessary to allow builder-style setters-->
+            <property name="checkSetters" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <priority>5</priority>
+        <properties>
+            <property name="minimum" value="40"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <priority>5</priority>
+        <properties>
+            <property name="xpath">
+                <!-- Allow "id" and "op" -->
+                <!-- http://stackoverflow.com/a/20748768/1270447 -->
+                <value>
+                    //VariableDeclaratorId[(string-length(@Name) &lt; 3) and (not (@Name='id'))]
+                    [not(ancestor::ForInit)]
+                    [not((ancestor::FormalParameter) and (ancestor::TryStatement))]
+                    [not(ancestor::LambdaExpression)]
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/design.xml">
+        <!-- Controversial rule -->
+        <!-- https://github.com/pmd/pmd/issues/847 -->
+        <exclude name="DataClass"/>
+        <!-- Can't avoid this without doing crazy things -->
+        <exclude name="ExcessiveImports"/>
+        <!-- Complete and utter insanity -->
+        <exclude name="LawOfDemeter"/>
+        <!-- Basically Java 9 modules - rule does nothing without configuration for each package -->
+        <exclude name="LoosePackageCoupling"/>
+        <!-- Deprecated -->
+        <exclude name="ModifiedCyclomaticComplexity"/>
+        <!-- Deprecated -->
+        <exclude name="NcssConstructorCount"/>
+        <!-- Checkstyle -->
+        <exclude name="NcssCount"/>
+        <!-- Deprecated -->
+        <exclude name="NcssMethodCount"/>
+        <!-- Deprecated -->
+        <exclude name="NcssTypeCount"/>
+        <!-- Checkstyle -->
+        <exclude name="NPathComplexity"/>
+        <!-- Deprecated -->
+        <exclude name="StdCyclomaticComplexity"/>
+        <exclude name="UseObjectForClearerAPI"/>
+        <exclude name="UseUtilityClass"/>
+    </rule>
+    <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
+        <properties>
+            <!-- Suppress in test classes -->
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration[matches(@Image, '.*Test')]"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentContent"/>
+        <exclude name="CommentRequired"/>
+    </rule>
+    <rule ref="category/java/documentation.xml/CommentSize">
+        <priority>4</priority>
+        <properties>
+            <property name="maxLineLength" value="140"/>
+            <property name="maxLines" value="100"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml">
+        <!-- Checkstyle -->
+        <exclude name="AssignmentInOperand"/>
+        <!-- Serialization not needed -->
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="CallSuperFirst"/>
+        <exclude name="CallSuperLast"/>
+        <!-- Outdated nonsense -->
+        <exclude name="JUnitSpelling"/>
+        <!-- Has some legitimate use, but way too many false positives -->
+        <exclude name="NullAssignment"/>
+        <!-- Rule is for J2EE -->
+        <exclude name="UseProperClassLoader"/>
+    </rule>
+    <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
+        <properties>
+            <property name="maxDuplicateLiterals" value="3"/>
+            <property name="minimumLength" value="1"/>
+            <property name="skipAnnotations" value="true"/>
+            <!-- Suppress in exceptions and log statements and test classes -->
+            <property name="violationSuppressXPath">
+                <value>
+                    <![CDATA[./ancestor::ThrowStatement |
+                    //ClassOrInterfaceDeclaration[matches(@Name, '.*Test')] |
+                    ./ancestor::PrimaryExpression/PrimaryPrefix/Name[starts-with(@Name,'log.')]]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/multithreading.xml">
+        <!-- Rule is for J2EE -->
+        <exclude name="DoNotUseThreads"/>
+        <!-- No, ConcurrentHashMap is slow and should only be used when required -->
+        <exclude name="UseConcurrentHashMap"/>
+    </rule>
+
+    <rule ref="category/java/performance.xml">
+        <!-- Way too many "false" positives for simple, necessary objects -->
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="InsufficientStringBufferDeclaration"/>
+    </rule>
+
+</ruleset>
