@@ -3,7 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     // expose Git commit and branch info (at build time) in actuator/info endpoint
-    id "com.gorylenko.gradle-git-properties" version "1.5.1" // TODO - remove this if not using GIT
+    id "com.gorylenko.gradle-git-properties" version "1.5.1"
 
     // languages
     id 'java'

@@ -2,13 +2,12 @@ ext {
     set('springCloudVersion', "Hoxton.SR4")
 }
 
-dependencies { // TODO - adjust the dependencies
+dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator' // To monitor and manage Spring application
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     // Design, build, document, and consume RESTFul web services
     implementation 'io.springfox:springfox-swagger2:2.9.2'
@@ -20,6 +19,12 @@ dependencies { // TODO - adjust the dependencies
     implementation 'org.apache.commons:commons-collections4:4.4' // useful libraries for collections
     implementation 'io.vavr:vavr' // functional style coding
     compileOnly 'org.projectlombok:lombok' // to avoid boilerplate codes
+
+    // AWS
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+
+    // Apache IO utils
+    implementation 'commons-io:commons-io:2.6'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
