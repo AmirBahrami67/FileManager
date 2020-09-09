@@ -1,4 +1,4 @@
-package com.abahrami.template.model;
+package com.abahrami.service.file.model;
 
 import java.time.Instant;
 import lombok.Builder;

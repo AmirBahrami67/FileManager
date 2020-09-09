@@ -1,4 +1,4 @@
-package com.abahrami.template.config;
+package com.abahrami.service.file.config;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,7 +28,7 @@ public class SpringFoxConfig {
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.abahrami")) // TODO - rename this package
+        .apis(RequestHandlerSelectors.basePackage("com.abahrami"))
         .paths(PathSelectors.any())
         .build()
         .pathMapping("/")
@@ -36,7 +36,6 @@ public class SpringFoxConfig {
         .genericModelSubstitutes(ResponseEntity.class)
         .useDefaultResponseMessages(true)
         .globalOperationParameters(
-            // TODO - change the API global parameter
             List.of(
                 new ParameterBuilder()
                     .name("appId")

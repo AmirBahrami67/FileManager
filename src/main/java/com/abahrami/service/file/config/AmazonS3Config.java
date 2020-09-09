@@ -1,4 +1,4 @@
-package com.abahrami.template.config;
+package com.abahrami.service.file.config;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;

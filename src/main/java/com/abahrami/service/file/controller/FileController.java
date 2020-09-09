@@ -1,12 +1,12 @@
-package com.abahrami.template.controller;
+package com.abahrami.service.file.controller;
 
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
 
-import com.abahrami.template.model.File;
-import com.abahrami.template.model.FileSummary;
-import com.abahrami.template.model.UploadRequest;
-import com.abahrami.template.service.FileService;
+import com.abahrami.service.file.model.File;
+import com.abahrami.service.file.model.FileSummary;
+import com.abahrami.service.file.model.UploadRequest;
+import com.abahrami.service.file.service.FileService;
 import com.amazonaws.util.IOUtils;
 import java.io.IOException;
 import java.util.List;

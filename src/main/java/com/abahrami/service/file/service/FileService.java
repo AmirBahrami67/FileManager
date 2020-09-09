@@ -1,8 +1,8 @@
-package com.abahrami.template.service;
+package com.abahrami.service.file.service;
 
-import com.abahrami.template.model.File;
-import com.abahrami.template.model.FileSummary;
-import com.abahrami.template.model.UploadRequest;
+import com.abahrami.service.file.model.File;
+import com.abahrami.service.file.model.FileSummary;
+import com.abahrami.service.file.model.UploadRequest;
 import java.util.List;
 
 public interface FileService {
