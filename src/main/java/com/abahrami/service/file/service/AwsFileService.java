@@ -1,10 +1,10 @@
-package com.abahrami.template.service;
+package com.abahrami.service.file.service;
 
 import static org.apache.commons.collections4.MapUtils.emptyIfNull;
 
-import com.abahrami.template.model.File;
-import com.abahrami.template.model.FileSummary;
-import com.abahrami.template.model.UploadRequest;
+import com.abahrami.service.file.model.File;
+import com.abahrami.service.file.model.FileSummary;
+import com.abahrami.service.file.model.UploadRequest;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;

@@ -1,4 +1,4 @@
-package com.abahrami.template.model;
+package com.abahrami.service.file.model;
 
 import java.io.InputStream;
 import java.util.Map;
