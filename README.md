@@ -1,13 +1,11 @@
-This is template project for a Web application configured with Gradle, Java, and Spring Boot Web technologies.
+This is a Spring project providing RESTful API for managing files on AWS S3.
 Features:
 * Spring Boot is configured to support RESTFul APIs.
+* AWS libraries are configured and FileMagaer services implemented using AWS S3 client.
 * Swagger framework is configured and ready to use to help developers design, build, document, and consume RESTFul APIs
 * Spring Actuator is configured to manage application at production.
-* Mongo DB libraries are configured to support persistence layer.
 * Lombok library is configured to help avoiding boiler-plate codes in Java.
 * Spock testing framework is configured to support unit tests.
-* JUnit 5 is configured to support unit/integration tests.
-* Jacoco plugin is configured as a code coverage tool.
 * checkstyle plugin is configured with Google code style standards for static code analysis.
 * PMD plugin is configured with a reasonable rules configuration for static code analysis.
 
